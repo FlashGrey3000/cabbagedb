@@ -45,9 +45,36 @@ void print_ascii_logo() {
 " (_,_)  (_,_)  (_,_)  (_,_)  (_,_)  (_,_)  (_,_)  (_,_)  (_,_)  (_,_) \n");
 }
 
-int main() {
-    draw_ansi_logo();
-    print_ascii_logo();
-
-    return 0;
+void repl() {
+    int choice;
+    char insert[33];
+    printf("1. INSERT INTO DB\n2. View all rows\n3. Delete row\n");
+    while (1) {
+        printf("cabbagedb> ");
+        scanf("%d", &choice);
+        getchar();
+        switch (choice)
+        {
+        case 1:
+            printf("input: ");
+            fgets(insert, 32, stdin);
+            printf("Statement: %s\n", insert);
+            
+            break;
+        case 2:
+            printf("All rows...\n");
+        
+            break;
+        case 3:
+            printf("Row deleted...\n");
+            
+            break;
+        
+        default:
+            break;
+        }
+        if (choice == 3) {
+            break;
+        }
+    }
 }
