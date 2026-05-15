@@ -1,13 +1,21 @@
 CC = gcc
-CFLAGS = -Wall -Wextra -g -fsanitize=address
+CFLAGS = -Wall -Wextra -g -fsanitize=address -Iinclude
 
-build/main:
-	$(CC) $(CFLAGS) src/main.c src/cli.c -o build/main
+SRC = $(wildcard src/*.c)
+OBJ = $(patsubst src/%.c, build/%.o, $(SRC))
 
-run: build/main
-	build/main
+TARGET = build/main
+
+$(TARGET): $(OBJ)
+	$(CC) $(CFLAGS) $(OBJ) -o $(TARGET)
+
+build/%.o: src/%.c
+	$(CC) $(CFLAGS) -c $< -o $@
+
+run: $(TARGET)
+	./$(TARGET)
 
 clean:
-	rm -f build/main
+	rm -f $(OBJ) $(TARGET)
 
 .PHONY: run clean
