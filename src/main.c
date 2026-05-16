@@ -1,11 +1,10 @@
 #include <stdio.h>
-#include "cli.c"
+#include "cli.h"
 
 int main() {
-    printf("---- <main> ----\n");
-    printf("main\n");
-    print_logo();
-    printf("---- <main> ----\n");
+    print_ascii_logo();
+
+    repl();
 
     return 0;
 }
