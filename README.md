@@ -34,3 +34,6 @@ cabbageDB> VIEW <INDEX>
 cabbageDB> DELETE <INDEX>
 OK
 ```
+
+## Contributing
+It's just a personal project yet ideas, discussions and anything else is more than welcome here <3
