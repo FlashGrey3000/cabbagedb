@@ -1,7 +1,14 @@
-<div style="display: flex; align-items: center; justify-content: center;">
+<table align="center" border="none">
+    <tr>
+        <th><img src="cabbagedb_logo.png" alt="logo" height="256"></th>
+        <th><h1>CabbageDB</h1></th>
+    </tr>
+</table>
+
+<!-- <div style="display: flex; align-items: center; justify-content: center;">
     <img src="cabbagedb_logo.png" alt="logo" height="256">
     <h1>CabbageDB</h1>
-</div>
+</div> -->
 
 A simple Database Management System built in C for understanding the database internals in depth.  
 
