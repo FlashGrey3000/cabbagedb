@@ -1,4 +1,6 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 void draw_ansi_logo() {
     printf("[?25l[0m [38;2;0;0;0m                                                               [0m\n"
@@ -45,36 +47,46 @@ void print_ascii_logo() {
 " (_,_)  (_,_)  (_,_)  (_,_)  (_,_)  (_,_)  (_,_)  (_,_)  (_,_)  (_,_) \n");
 }
 
-void repl() {
-    int choice;
-    char insert[33];
-    printf("1. INSERT INTO DB\n2. View all rows\n3. Delete row\n");
-    while (1) {
-        printf("cabbagedb> ");
-        scanf("%d", &choice);
-        getchar();
-        switch (choice)
-        {
-        case 1:
-            printf("input: ");
-            fgets(insert, 32, stdin);
-            printf("Statement: %s\n", insert);
-            
-            break;
-        case 2:
-            printf("All rows...\n");
-        
-            break;
-        case 3:
-            printf("Row deleted...\n");
-            
-            break;
-        
-        default:
-            break;
-        }
-        if (choice == 3) {
-            break;
-        }
+typedef struct {
+    char *buffer;
+    size_t buffer_size;
+} InputBuffer;
+
+InputBuffer *new_input_buffer() {
+    InputBuffer *input_buffer = (InputBuffer *)malloc(sizeof(InputBuffer));
+    input_buffer->buffer = NULL;
+    input_buffer->buffer_size = 0;
+
+    return input_buffer;
+}
+
+void clean_input_buffer(InputBuffer *input_buffer) {
+    free(input_buffer->buffer);
+    free(input_buffer);
+}
+
+int parse_input(InputBuffer *input_buffer) {
+    if (strncmp(input_buffer->buffer, "hi", 2) == 0) {
+        printf("Hello! Welcome to cabbage land!\n");
+    } else if (strncmp(input_buffer->buffer, "bye", 3) == 0) {
+        printf("Good cabbage day!\n");
+    } else {
+        printf("Unrecognized cabbage: %s\n", input_buffer->buffer);
+        return -1;
     }
+    return 1;
+}
+
+void repl() {
+    InputBuffer *input_buffer = new_input_buffer();
+    int status = 1;
+    printf("1. INSERT INTO DB\n2. View all rows\n3. Delete row\n");
+
+    while (status == 1) {
+        printf("cabbagedb> ");
+        getline(&input_buffer->buffer, &input_buffer->buffer_size, stdin);
+        status = parse_input(input_buffer);
+    }
+    
+    clean_input_buffer(input_buffer);
 }
